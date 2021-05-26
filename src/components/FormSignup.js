@@ -1,7 +1,16 @@
-const FormSignup = () => {
+import './Form.css';
+import useForm from '../hooks/useForm';
+import validate from '../utils/validateInfo';
+
+const FormSignup = ({ submitForm }) => {
+  const { changeHandler, values, submitHandler, errors } = useForm(
+    submitForm,
+    validate
+  );
+
   return (
     <div className="form-content-right">
-      <form className="form">
+      <form className="form" onSubmit={submitHandler}>
         <h1>
           Get started with us today! Create your account by filling out the
           information below.
@@ -16,7 +25,10 @@ const FormSignup = () => {
             name="username"
             className="form-input"
             placeholder="Enter your username"
+            value={values.username}
+            onChange={changeHandler}
           />
+          {errors.username && <p>{errors.username}</p>}
         </div>
         <div className="form-inputs">
           <label htmlFor="email" className="form-label">
@@ -28,7 +40,10 @@ const FormSignup = () => {
             name="email"
             className="form-input"
             placeholder="Enter your email"
+            value={values.email}
+            onChange={changeHandler}
           />
+          {errors.email && <p>{errors.email}</p>}
         </div>
         <div className="form-inputs">
           <label htmlFor="password" className="form-label">
@@ -40,7 +55,10 @@ const FormSignup = () => {
             name="password"
             className="form-input"
             placeholder="Enter your password"
+            value={values.password}
+            onChange={changeHandler}
           />
+          {errors.password && <p>{errors.password}</p>}
         </div>
         <div className="form-inputs">
           <label htmlFor="password2" className="form-label">
@@ -48,11 +66,14 @@ const FormSignup = () => {
           </label>
           <input
             id="password2"
-            type="password2"
+            type="password"
             name="password2"
             className="form-input"
             placeholder="Confirm your password"
+            value={values.password2}
+            onChange={changeHandler}
           />
+          {errors.password2 && <p>{errors.password2}</p>}
         </div>
         <button className="form-input-btn" type="submit">
           Sign up
